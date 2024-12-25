@@ -7,5 +7,5 @@ appwrite.setEndpoint(APPWRITE_URL).setProject(APPWRITE_PROJECT_ID);
 
 export { ID } from "appwrite";
 export const account = new Account(appwrite);
-export const databases = new Databases(appwrite);
+export const DB = new Databases(appwrite);
 export const storage = new Storage(appwrite);

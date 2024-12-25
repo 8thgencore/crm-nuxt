@@ -1,22 +1,23 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
 import { cn } from '@/lib/utils'
 
-const props = defineProps<{
-  class?: HTMLAttributes['class']
-}>()
+const props = defineProps({
+  class: {
+    type: String,
+    default: '',
+  },
+})
 </script>
 
 <template>
   <div :class="cn(
-    'rounded-lg border border-transparent bg-card text-card-foreground animation transition-colors hover:border-[#a252c83d]',
-    props.class,
+    'rounded-lg bg-card text-card-foreground animation border border-transparent transition-colors hover:border-[#a252c83d]',
+    props.class
   )
     ">
     <slot />
   </div>
 </template>
-
 
 <style scoped>
 @keyframes show {
