@@ -4,6 +4,11 @@ import type { ICard, IColumn } from '~/components/kanban/kanban.types';
 import { useKanbanQuery } from '~/components/kanban/useKanbanQuery';
 import { convertCurrency } from '~/lib/convertCurrency';
 import dayjs from 'dayjs';
+import { DB } from '~/lib/appwrite';
+import { APPWRITE_DATABASE_ID, COLLECTION_DEALS } from '~/app.constants';
+import type { DealStatus } from '~/types/deals.types';
+import { useMutation } from '@tanstack/vue-query';
+import { generateColumnStyle } from '@/components/kanban/generate-gradient'
 
 useSeoMeta({
     title: 'Home | CRM System',
@@ -12,11 +17,41 @@ useSeoMeta({
 
 const dragCardRef = ref<ICard | null>(null);
 const sourceColumnRef = ref<IColumn | null>(null);
+const { data, isLoading, refetch } = useKanbanQuery()
+// const store = useDealSlideStore()
 
-const { data, isLoading, refetch } = useKanbanQuery();
 
+type TypeMutationVariables = {
+    docId: string
+    status?: DealStatus
+}
+
+const { mutate } = useMutation({
+    mutationKey: ['move card'],
+    mutationFn: ({ docId, status }: TypeMutationVariables) =>
+        DB.updateDocument(APPWRITE_DATABASE_ID, COLLECTION_DEALS, docId, {
+            status,
+        }),
+    onSuccess: () => {
+        refetch()
+    },
+})
+
+function handleDragStart(card: ICard, column: IColumn) {
+    dragCardRef.value = card
+    sourceColumnRef.value = column
+}
+
+function handleDragOver(event: DragEvent) {
+    event.preventDefault()
+}
+
+function handleDrop(targetColumn: IColumn) {
+    if (dragCardRef.value && sourceColumnRef.value) {
+        mutate({ docId: dragCardRef.value.id, status: targetColumn.id })
+    }
+}
 </script>
-
 
 <template>
     <div class="p-10">
@@ -26,7 +61,8 @@ const { data, isLoading, refetch } = useKanbanQuery();
             <div class="grid grid-cols-5 gap-16">
                 <div v-for="(column, index) in data" :key="column.id" @dragover="handleDragOver"
                     @drop="() => handleDrop(column)" class="min-h-screen">
-                    <div class="rounded bg-slate-700 py-1 px-5 mb-2 text-center">
+                    <div class="rounded bg-slate-700 py-1 px-5 mb-2 text-center"
+                        :style="generateColumnStyle(index, data?.length)">
                         {{ column.name }}
                     </div>
                     <div>
