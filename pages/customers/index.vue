@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useQuery } from '@tanstack/vue-query'
 import { COLLECTION_CUSTOMERS, APPWRITE_DATABASE_ID } from '~/app.constants'
-import { DB } from '~/lib/appwrite';
+import { DB } from '~/lib/appwrite'
 import type { ICustomer } from '~/types/deals.types'
 
 useSeoMeta({
@@ -28,19 +28,10 @@ const { data: customers, isLoading } = useQuery({
         </UITableRow>
       </UITableHeader>
       <UITableBody>
-        <UITableRow
-            v-for="customer in (customers?.documents as unknown as ICustomer[])"
-            :key="customer.$id"
-        >
+        <UITableRow v-for="customer in customers?.documents as unknown as ICustomer[]" :key="customer.$id">
           <UITableCell>
             <NuxtLink :href="`/customers/edit/${customer.$id}`">
-              <NuxtImg
-                  :src="customer.avatar_url"
-                  :alt="customer.name"
-                  width="50"
-                  height="50"
-                  class="rounded-full"
-              />
+              <NuxtImg :src="customer.avatar_url" :alt="customer.name" width="50" height="50" class="rounded-full" />
             </NuxtLink>
           </UITableCell>
           <UITableCell class="font-medium">

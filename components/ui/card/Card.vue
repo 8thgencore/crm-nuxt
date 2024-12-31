@@ -10,11 +10,14 @@ const props = defineProps({
 </script>
 
 <template>
-  <div :class="cn(
-    'rounded-lg bg-card text-card-foreground animation border border-transparent transition-colors hover:border-[#a252c83d]',
-    props.class
-  )
-    ">
+  <div
+    :class="
+      cn(
+        'rounded-lg bg-card text-card-foreground animation border border-transparent transition-colors hover:border-[#a252c83d]',
+        props.class,
+      )
+    "
+  >
     <slot />
   </div>
 </template>

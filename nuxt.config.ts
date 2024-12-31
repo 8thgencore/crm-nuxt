@@ -1,15 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
   modules: [
-    "@nuxt/ui",
-    "@nuxt/image",
-    "@nuxtjs/tailwindcss",
-    "shadcn-nuxt",
-    "@nuxt/icon",
+    '@nuxt/ui',
+    '@nuxt/image',
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+    '@nuxt/icon',
     [
-      "@nuxtjs/google-fonts",
+      '@nuxtjs/google-fonts',
       {
         families: {
           Lato: {
@@ -19,19 +19,19 @@ export default defineNuxtConfig({
         },
       },
     ],
-    "@pinia/nuxt",
+    '@pinia/nuxt',
     [
-      "@vee-validate/nuxt",
+      '@vee-validate/nuxt',
       {
         autoImport: true,
       },
     ],
   ],
   shadcn: {
-    prefix: "UI",
-    componentDir: "./components/ui",
+    prefix: 'UI',
+    componentDir: './components/ui',
   },
   pinia: {
-    storesDirs: ["./store/**"],
+    storesDirs: ['./store/**'],
   },
-});
+})
