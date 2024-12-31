@@ -2,7 +2,9 @@
 </script>
 
 <template>
-  <NuxtLayout>
-    <RouterView />
-  </NuxtLayout>
+  <div>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
 </template>

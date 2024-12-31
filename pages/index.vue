@@ -9,6 +9,7 @@ import { APPWRITE_DATABASE_ID, COLLECTION_DEALS } from '~/app.constants';
 import type { DealStatus } from '~/types/deals.types';
 import { useMutation } from '@tanstack/vue-query';
 import { generateColumnStyle } from '@/components/kanban/generate-gradient'
+import { useDealSlideStore } from '~/store/deal-slide.store';
 
 useSeoMeta({
     title: 'Home | CRM System',
@@ -18,7 +19,7 @@ useSeoMeta({
 const dragCardRef = ref<ICard | null>(null);
 const sourceColumnRef = ref<IColumn | null>(null);
 const { data, isLoading, refetch } = useKanbanQuery()
-// const store = useDealSlideStore()
+const store = useDealSlideStore()
 
 
 type TypeMutationVariables = {
